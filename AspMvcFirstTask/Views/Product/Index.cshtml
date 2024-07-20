@@ -1,0 +1,39 @@
+﻿@model List<Product>
+
+<h1>Products List</h1>
+<table class="products-table" >
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>@product.Description</td>
+                <td>@product.Price.ToString("C")</td>
+                <td>@product.Category</td>
+                <td style="display:flex;gap:5px">
+                    <form asp-controller="Product" asp-action="Delete" method="post" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                        <input type="hidden" name="id" value="@product.Id" />
+                        <button style="background-color:red" type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+
+                     <form asp-controller="Product" asp-action="Edit" method="get">
+                        <input type="hidden" name="id" value="@product.Id.ToString()" />
+                        <button type="submit" class="btn btn-edit">Edit</button>
+                    </form>
+                </td
+                 
+            </tr>
+        }
+    </tbody>
+</table>
+
